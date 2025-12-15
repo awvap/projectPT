@@ -1,6 +1,6 @@
 /* ===== CSS Variables ===== */
 :root {
-    --color-primary: #F14D34;
+    --color-primary: #F14D34; /*исправил*/
     --color-black: #050C33;
     --color-white: #FFFFFF;
     --color-gray-light: #F6F7FB;
