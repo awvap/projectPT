@@ -1,6 +1,7 @@
 /* ===== CSS Variables ===== */
 :root {
-    --color-primary: #F14D34; /*исправил*/
+    --color-primary: #F14D34;
+    /*исправил*/
     --color-black: #050C33;
     --color-white: #FFFFFF;
     --color-gray-light: #F6F7FB;
@@ -930,13 +931,16 @@ button {
 }
 
 .plan-card {
+    position: relative;           /* обязательно */
     background: var(--color-white);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
     padding: 80px 60px 60px;
     box-shadow: 0 4px 60px rgba(161, 161, 161, 0.25);
     transition: var(--transition);
+    overflow: hidden;             /* чтобы псевдоэлемент не вылезал наружу */
 }
+
 
 .plan-card:hover {
     transform: translateY(-10px);
@@ -984,11 +988,12 @@ button {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-primary);  
     border-radius: var(--border-radius);
-    z-index: -1;
-    animation: glow 2s infinite alternate;
+    box-shadow: 0 0 25px rgba(241, 77, 52, 0.4);
+    z-index: -1;                              
 }
+
 
 @keyframes glow {
     0% {
@@ -1550,18 +1555,64 @@ button {
 
 /* ===== Contact Form ===== */
 .webform {
-    background: linear-gradient(233deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%), #040613;
+    background: #050c33;
     padding: 100px 0;
     color: var(--color-white);
     position: relative;
+    overflow: hidden;
 }
 
+.webform::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+    /* было -1 */
+}
+
+/* буква D поверх затемнения */
+.webform__d-logo {
+    position: absolute;
+    top: -60px;
+    right: -80px;
+    width: 260px;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* контент ещё выше */
 .webform__content {
+    position: relative;
+    z-index: 2;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 100px;
     align-items: start;
 }
+
+.webform__d-small {
+    position: absolute;
+    width: 120px;
+    /* подгони размер */
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 1;
+    /* ниже формы, но выше фона */
+}
+
+.webform__d-small--left {
+    bottom: -40px;
+    /* координаты как в макете */
+    left: -20px;
+}
+
+.webform__d-small--right {
+    bottom: -120px;
+    right: -40px;
+}
+
 
 .webform__title {
     font-weight: 700;
@@ -1893,7 +1944,15 @@ button {
 
     .services__grid,
     .support__grid,
-    .cases__grid,
+    .cases__grid {
+        grid-template-columns: 1fr; 
+        gap: 20px;
+    }
+
+    .case-card {
+        width: 100%;
+        max-width: none;   
+    }
     .team__grid {
         grid-template-columns: 1fr;
     }
@@ -2031,5 +2090,104 @@ button {
 
     .webform__contact-phone {
         font-size: 20px;
+    }
+}
+
+/* Экраны до 576px */
+@media (max-width: 576px) {
+
+    /* Уменьшаем боковые отступы контейнера */
+    .container {
+        padding: 0 10px;
+    }
+
+    /* Кнопка "Показать ещё" по центру и шире */
+    .cases__more {
+        text-align: center;
+    }
+
+    .cases__more .btn {
+        width: 100%;
+        max-width: 280px;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+/* Совсем узкие экраны до 400px */
+@media (max-width: 400px) {
+
+    /* Ещё чуть меньше отступы */
+    .container {
+        padding: 0 5px;
+    }
+
+    /* Чуть компактнее кнопки */
+    .btn {
+        padding: 16px 20px;
+    }
+}
+
+/* Мобильная сетка: две колонки до 576px */
+@media (max-width: 576px) {
+
+    /* Общий контейнер немного уже */
+    .container {
+        padding: 0 10px;
+    }
+
+    /* Услуги: 2 колонки */
+    .services__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* Кейсы: 2 колонки, без больших карточек */
+    .cases__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .case-card {
+        padding: 0; 
+    }
+    .case-card__content {
+        padding: 12px;
+    }
+
+    .case-card__title {
+        font-size: 14px;          /* меньше шрифт */
+        line-height: 1.3;
+        max-height: 3.9em;        /* примерно 3 строки */
+        overflow: hidden;
+    }
+
+    .case-card__date {
+        font-size: 10px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+
+    .case-card__text {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    .case-card--large,
+    .case-card--overlay {
+        grid-column: auto;       /* убираем span 2 */
+        min-height: 260px;
+    }
+
+    /* Тарифы: 2 колонки */
+    .plans__grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .plan-card {
+        padding: 40px 20px 30px;
     }
 }
