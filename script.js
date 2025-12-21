@@ -106,10 +106,14 @@ new ReviewsSlider();
 
 // ===== Form Validation & Submission =====
 const form = document.querySelector('.webform__form');
+console.log('form =', form); // проверка
 
 if (form) {
+    console.log('Вешаю обработчик submit'); // проверка
+
     form.addEventListener('submit', function (e) {
         e.preventDefault();
+        console.log('submit пойман'); // проверка
 
         const name = form.querySelector('input[type="text"]').value;
         const phone = form.querySelector('input[type="tel"]').value;
@@ -117,7 +121,6 @@ if (form) {
         const comment = form.querySelector('textarea').value;
         const checkbox = form.querySelector('input[type="checkbox"]').checked;
 
-        // Basic validation
         if (!name || !phone || !email) {
             alert('Пожалуйста, заполните все обязательные поля');
             return;
@@ -128,25 +131,23 @@ if (form) {
             return;
         }
 
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             alert('Пожалуйста, введите корректный email');
             return;
         }
 
-        // Phone validation (basic)
         const phoneRegex = /^[\d\s\+\-\(\)]+$/;
         if (!phoneRegex.test(phone)) {
             alert('Пожалуйста, введите корректный номер телефона');
             return;
         }
 
-        // Simulate form submission
         alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
         form.reset();
     });
 }
+
 
 // ===== Animated Numbers on Scroll =====
 function animateValue(element, start, end, duration) {
@@ -418,9 +419,9 @@ class PlanSelector {
     }
 
     trackSelection(planType) {
-        console.log(Выбран тариф: ${ planType });
-        // Здесь можно добавить Google Analytics, Яндекс.Метрику и т.д.
+        console.log(`Выбран тариф: ${planType}`);
     }
+
 }
 
 // Инициализация при загрузке страницы
