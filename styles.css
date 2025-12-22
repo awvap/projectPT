@@ -931,14 +931,16 @@ button {
 }
 
 .plan-card {
-    position: relative;           /* обязательно */
+    position: relative;
+    /* обязательно */
     background: var(--color-white);
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
     padding: 80px 60px 60px;
     box-shadow: 0 4px 60px rgba(161, 161, 161, 0.25);
     transition: var(--transition);
-    overflow: hidden;             /* чтобы псевдоэлемент не вылезал наружу */
+    overflow: hidden;
+    /* чтобы псевдоэлемент не вылезал наружу */
 }
 
 
@@ -988,10 +990,10 @@ button {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    border: 2px solid var(--color-primary);  
+    border: 2px solid var(--color-primary);
     border-radius: var(--border-radius);
     box-shadow: 0 0 25px rgba(241, 77, 52, 0.4);
-    z-index: -1;                              
+    z-index: -1;
 }
 
 
@@ -1945,14 +1947,15 @@ button {
     .services__grid,
     .support__grid,
     .cases__grid {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 
     .case-card {
         width: 100%;
-        max-width: none;   
+        max-width: none;
     }
+
     .team__grid {
         grid-template-columns: 1fr;
     }
@@ -2128,7 +2131,7 @@ button {
     }
 }
 
-/* Мобильная сетка: две колонки до 576px */
+/* Мобильная сетка: одна колонка до 576px */
 @media (max-width: 576px) {
 
     /* Общий контейнер немного уже */
@@ -2136,31 +2139,28 @@ button {
         padding: 0 10px;
     }
 
-    /* Услуги: 2 колонки */
-    .services__grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+    /* Сетки в одну колонку */
+    .services__grid,
+    .support__grid,
+    .cases__grid {
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 
-    /* Кейсы: 2 колонки, без больших карточек */
-    .cases__grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
+    /* Карточки кейсов */
+    .case-card {
+        padding: 0;
     }
 
-    .case-card {
-        padding: 0; 
-    }
     .case-card__content {
         padding: 12px;
     }
 
     .case-card__title {
-        font-size: 14px;          /* меньше шрифт */
+        font-size: 14px;
         line-height: 1.3;
-        max-height: 3.9em;        /* примерно 3 строки */
+        max-height: 3.9em;
+        /* примерно 3 строки */
         overflow: hidden;
     }
 
@@ -2174,20 +2174,43 @@ button {
         font-size: 12px;
         line-height: 1.4;
     }
+
     .case-card--large,
     .case-card--overlay {
-        grid-column: auto;       /* убираем span 2 */
+        grid-column: auto;
+        /* убираем span 2 */
         min-height: 260px;
     }
 
-    /* Тарифы: 2 колонки */
+    /* Отступы для кнопки под кейсами */
+    .cases__more {
+        text-align: center;
+        margin-top: 20px;
+        padding-bottom: 40px;
+    }
+
+    /* Тарифы: одна колонка */
     .plans__grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 
     .plan-card {
         padding: 40px 20px 30px;
+        width: 100%;
     }
+}
+
+/* Базовые стили кейсов и кнопки (вне медиазапроса) */
+.cases {
+    padding: 100px 0;
+    background: var(--color-gray-light);
+    overflow: visible;
+}
+
+.cases__more {
+    text-align: center;
+    margin-top: 20px;
+    padding-bottom: 40px;
 }
